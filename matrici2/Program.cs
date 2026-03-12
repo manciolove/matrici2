@@ -1,4 +1,6 @@
-﻿namespace matrici2
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace matrici2
 {
     static class Program
     {
@@ -19,28 +21,46 @@
         }
 
         // funzione esercizio 2 
-        static bool Somma(int[,] m)
+        static bool SommaDiagonali(int[,] m)
         {
-            int cont = 0;
-            int cont2 = 0;
-            int j = m.GetLength(0) - 1;
-            bool c = false;
-
+            int sP = 0, sS = 0;
+            int l = m.GetLength(0) - 1;
             for (int i = 0; i < m.GetLength(0); i++)
-            {
-                 cont = cont + m[i, j];
-                cont2= cont2 + m[i, j];
-                j -= 1;
+            { 
+                sP += m[i, i];
+                sS = sS + m[i, l];
+                
             }
-            if (cont == cont2)
+            if (sP == sS)
             {
-                return c = true;
+                return true;
             }
             else
             {
-                return c;
+                return false;
             }
         }
+
+        // funzione esercizio 3
+        static bool VerificaBordi (int[,] m)
+        {
+            int n = m[0, 0];
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    if (i == 0 || i == m.GetLength(0) - 1 || j == 0 || j == m.GetLength(1) - 1)
+                    {
+                        if (m[i, j] != n)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
 
         static void Main(string[] args)
         {
@@ -55,20 +75,23 @@
             bool risultato = VerificaValori(m, x, y);
             if (risultato == true)
             {
-                Console.WriteLine($"i valori tra {x} e {y} sono compresi");
+                Console.WriteLine("i valori tra " + x + "e" + y + "sono compresi");
             }
             else if (risultato == false)
             {
-                Console.WriteLine($"i valori tra {x} e {y} non sono compresi");
+                Console.WriteLine("i valori tra " + x + "e" + y + "non sono compresi");
             }
 
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine();
 
+
             // esercizio 2
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine("Esercizio 2");
-            bool somma = Somma(m);
+            int[,] s = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+
+            bool somma = SommaDiagonali(s);
             if (somma == true)
             {
                 Console.WriteLine("la somma delle diagonali è uguale");
@@ -78,6 +101,24 @@
                 Console.WriteLine("la somma delle diagonali non è uguale");
 
             }
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
+
+
+            // esercizio 3
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("Esercizio 3");
+
+
+            bool bordi = VerificaBordi(m);
+            if (bordi == true)
+            {
+                Console.WriteLine("i bordi sono uguali");
+            }
+            else if (bordi == false)
+            {
+                Console.WriteLine("i bordi non sono uguali");
+            } 
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine();
         }
