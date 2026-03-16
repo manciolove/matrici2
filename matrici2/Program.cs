@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace matrici2
+﻿namespace matrici2
 {
     static class Program
     {
@@ -61,6 +59,28 @@ namespace matrici2
             return true;
         }
 
+        // funzione esercizio 4
+        static bool Palindroma(int[,] m)
+        {
+            for (int i = 0; i < m.GetLength(0); i++)
+            {
+                int sommaInizio = 0;
+                int sommaFine = 0;
+
+                for (int j = 0; j < m.GetLength(1); j++)
+                {
+                    sommaInizio = sommaInizio + m[i, j];
+                    sommaFine = sommaFine + m[m.GetLength(0) - 1 - i, j];
+                }
+
+                if (sommaInizio != sommaFine)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
         static void Main(string[] args)
         {
@@ -75,11 +95,11 @@ namespace matrici2
             bool risultato = VerificaValori(m, x, y);
             if (risultato == true)
             {
-                Console.WriteLine("i valori tra " + x + "e" + y + "sono compresi");
+                Console.WriteLine("i valori tra " + x + " e " + y + " sono compresi");
             }
             else if (risultato == false)
             {
-                Console.WriteLine("i valori tra " + x + "e" + y + "non sono compresi");
+                Console.WriteLine("i valori tra " + x + " e " + y + " non sono compresi");
             }
 
             Console.WriteLine("---------------------------------------------");
@@ -119,6 +139,17 @@ namespace matrici2
             {
                 Console.WriteLine("i bordi non sono uguali");
             } 
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
+
+            // esercizio 4
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine("Esercizio 4");
+            for (int i = 0; i < m.GetLength(0) / 2; i++)
+            {
+                    Console.Write(Palindroma(m));
+            }
+            Console.WriteLine();
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine();
         }
